@@ -56,8 +56,14 @@ async function getPromiseResult(source) {
  * [Promise.resolve(1), Promise.reject(2), Promise.resolve(3)]  => Promise fulfilled with 1
  * [Promise.reject(1), Promise.reject(2), Promise.reject(3)]    => Promise rejected
  */
-function getFirstResolvedPromiseResult(/* promises */) {
-  throw new Error('Not implemented');
+async function getFirstResolvedPromiseResult(promises) {
+  try {
+    const firstResolved = await Promise.any(promises);
+
+    return firstResolved;
+  } catch {
+    return Promise.reject();
+  }
 }
 
 /**
